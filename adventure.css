@@ -1,0 +1,67 @@
+/*font-family: 'Montserrat', sans-serif;*/
+
+html, body{
+    padding: 0;
+    margin: 0;
+}
+*{
+    font-family: Arial, Helvetica, sans-serif;
+}
+button{
+    border: none;
+    outline: none;
+}
+div#game-container{
+    position: relative;
+    float: left;
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+}
+    h1#title{
+        width: 100%;
+        background-color: #1E1E1E;
+        padding: 10px 0;
+        margin: 0;
+        color: #FFF;
+        text-align: center;
+        text-transform: uppercase;
+    }
+    div#description{
+        margin: auto;
+        max-width: 300px;
+        padding: 15px;
+        box-sizing: border-box;
+        background-color: #252526;
+        margin-top: 100px;
+        color: #FFF;
+    }
+    div#game-buttons{
+        position: relative;
+        margin: auto;
+        max-width: 600px;
+        box-sizing: border-box;
+        text-align: center;
+        top: 100px;
+    }
+        div#game-buttons button{
+            display: inline-block;
+            padding: 7px 10px;
+            margin: 0 40px;
+            background-color: #1E1E1E;
+            color: #FFF;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 20px;
+            cursor: pointer;
+            background-size: cover;
+            background-position: center;
+        }
+            div#game-buttons img{
+                width: 150px;
+            }
+ img#inventoryItem{
+     position: absolute;
+     left: 10px;
+     bottom: 0;
+     width: 150px;
+ }
