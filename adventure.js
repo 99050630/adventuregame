@@ -2,6 +2,7 @@ var auto;
 
 var banden = false;
 var nieuweBanden = false;
+var oudeBandenAan = true;
 
 var carChange = true;
 
@@ -61,6 +62,48 @@ function setCarImage(){
     gameButtons.style.maxWidth = "100%";
 }
 
+function setBtn(btn, t, e, d){
+    if(btn == "1"){
+        if(t != ""){
+            btn1.innerText = t;
+        }
+        if(e != ""){
+            btn1.setAttribute("onclick", e);
+        }
+        if(d == "none"){
+            btn1.style.display = "none";
+        }else{
+            btn1.style.display = "inline-block";
+        }
+    }
+    if(btn == "2"){
+        if(t != ""){
+            btn2.innerText = t;
+        }
+        if(e != ""){
+            btn2.setAttribute("onclick", e);
+        }
+        if(d == "none"){
+            btn2.style.display = "none";
+        }else{
+            btn2.style.display = "inline-block";
+        }
+    }
+    if(btn == "3"){
+        if(t != ""){
+            btn3.innerText = t;
+        }
+        if(e != ""){
+            btn3.setAttribute("onclick", e);
+        }
+        if(d == "none"){
+            btn3.style.display = "none";
+        }else{
+            btn3.style.display = "inline-block";
+        }
+    }
+}
+
 function setStandard(t, o){
     title.innerText = t;
     omschrijving.innerText = o;
@@ -70,28 +113,30 @@ function bandGevonden(){
     banden = true;
     alert("Je hebt een nieuw setje banden gevonden");
 }
+function setBackground(name){
+    gameContainer.style.backgroundImage = "url('images/backgrounds/" + name + "')";
+}
 
 function startPagina(){
-    btn1.style.display = 'none';
-    btn3.style.display = 'none';
-    btn2.innerText = "START";
-    btn2.style.backgroundColor = "green";
-    btn2.setAttribute('onclick','kiesAuto()');
+    setBackground("startpagina.jpg");
     setStandard("race driver", "Je bent een auto coureur en je moet de aankomende race echt winnen anders verlies je het kampioenschap je moet dingen vinden en laten maken luk het jou om de race te winnen?")
+    setBtn("1", "", "", "none");
+    setBtn("3", "", "", "none");
+    setBtn("2", "START", "kiesauto()");
+    btn2.style.backgroundColor = "green";
     img.style.display = "none";
-    gameContainer.style.backgroundImage = "url('images/backgrounds/startpagina.jpg')";
 }
 
 function kiesAuto(){
-    carChange = true;
-    img.style.display = "none";
     setInlineBlock();
     setCarImage();
+    setBtn("1", "", "workshop('ftype')");
+    setBtn("2", "", "workshop('gtr')");
+    setBtn("3", "", "workshop('m2')");
     setStandard("Auto kiezen", "Kies hier je auto waar mee je wilt racen!");
-    btn1.setAttribute('onclick','workshop("ftype")');
-    btn2.setAttribute('onclick','workshop("gtr")');
-    btn3.setAttribute('onclick','workshop("m2")');
-    gameContainer.style.backgroundImage = "url('images/backgrounds/nurburgring.jpg')";
+    setBackground("nurburgring.jpg");
+    carChange = true;
+    img.style.display = "none";
 }
 function workshop(car){
     console.log(car);
@@ -101,48 +146,90 @@ function workshop(car){
     }
     setInlineBlock();
     setStandard("Workshop", "dit is de workshop hier kan je nieuwe dingen monteren!");
-    gameContainer.style.backgroundImage = "url('images/backgrounds/workshop.jpeg')";
+    setBtn("1", "Kies auto", "kiesAuto()");
+    setBtn("2", "Naar de voorbereiding", "voorbereiding()");
+    setBtn("3", "", "", "none");
+    setBackground("workshop.jpeg");
     img.src = "images/items/banden.png";
     img.style.display = "block";
     img.setAttribute('onclick', 'bandGevonden()');
-    btn1.innerText = "Kies auto";
-    btn2.innerText = "naar de voorbereiding van de racebaan";
-    btn3.style.display = "none";
-    btn1.setAttribute('onclick','kiesAuto()');
-    btn2.setAttribute('onclick','voorbereiding()');
-    
 }
 
 function voorbereiding(){
-    img.style.display = "none";
     setInlineBlock();
     setStandard("Voorbereiding", "Dit is de voorbereiding als je nu gaat racen krijg je gelijk de uitslag");
-    gameContainer.style.backgroundImage = "url('images/backgrounds/voorbereiding_"+ auto +".jpg')";
+    setBackground("voorbereiding_"+ auto +".jpg");
     if(banden){
-        btn2.innerText = 'Nieuwe banden monteren';
-        btn2.setAttribute('onclick', "nieuweBanden = true; alert('je nieuwe banden zijn gemonteerd')");
+        setBtn("2", "Nieuwe banden monteren", "nieuweBanden = true; alert('je nieuwe banden zijn gemonteerd')");
     }else{
-        btn2.style.display = "none";
+        setBtn("2", "", "", "none");
     }
-    btn1.innerText = "Terug naar de workshop";
-    btn1.setAttribute('onclick', 'workshop()');
-    btn3.innerText = "Naar de race!";
-    btn3.setAttribute("onclick", "race()");
+    setBtn("1", "Terug naar de workshop", "workshop()");
+    setBtn("3", "Naar de race!", "race()");
+    img.style.display = "none";
 }
 
 function race(){
     setInlineBlock();
-    gameContainer.style.backgroundImage = "url('images/backgrounds/race.jpg')";
-    if(nieuweBanden == true && auto == "gtr" || auto == "ftype"){
-        setStandard("de race", "gefeliciteerd je hebt gewonnen!");
-    }else{
-        setStandard("de race", "Helaas je bent gecrashed");
-    }
-    btn1.style.display = "none";
-    btn3.style.display = "none";
-    btn2.innerText = "reset";
-    btn2.setAttribute("onclick", "location.reload()");
+    setBackground("race.jpg");
+    setBtn("1", "Naar de pitstraat", "pitstraat()");
+    setBtn("2", "Doorrijden", "baan()");
+    setBtn("3", "", "", "none");
 }  
 
+function pitstraat(){
+    banden = true;
+    setInlineBlock();
+    setStandard("Pitstraat", "Dit is de pitstraat hier kan je verschillenden dingen doen bijvoorbeeld nieuwe banden monteren");
+    setBackground("pitstraat.jpg");
+    if(banden == true && nieuweBanden == false){
+        setBtn("1", "Nieuwe banden monteren", "nieuweBanden = true; alert('je hebt een nieuw setje banden gemonteerd')");
+        nieuweBanden = true;
+    }else if(nieuweBanden == true){
+        setBtn("1", "Oude banden monteren", "oudeBandenAan = true; alert('je hebt je oude banden gemonteerd')");
+    }
+    setBtn("2", "Doorrijden", "baan()")
+    setBtn("3", "Opgeven", "opgeven()");
+}
+
+function opgeven(){
+    setInlineBlock();
+    setStandard("Je hebt verloren", "Omdat je hebt opgegeven heb je automatisch verloren");
+    setBackground("pitbox.jpg");
+}
+
+function baan(){
+    setInlineBlock();
+    setStandard("Welke kant van de baan?", "Je hebt een keuze te maken pak je de linkse baan of de rechtse baan?");
+    setBtn("1", "Links", "bocht('links')");
+    setBtn("2", "Rechts", "bocht('rechts')");
+    setBtn("3", "", "", "none");
+}
+
+function bocht(richting){
+    setInlineBlock();
+    if(richting == "links"){
+        setStandard("Verloren", "Je bent over een spijker heen gereden en gecrashed");
+        setBackground("grindbak.jpg");
+    }else{
+        gewonnen();
+    }
+}
+
+function gewonnen(){
+    setInlineBlock();
+    if(nieuweBanden == true && auto == "gtr" || auto == "ftype"){
+        setStandard("GEWONNEN", "Gefeliciteerd je hebt gewonnen");
+        setBackground("win.jpg");
+        setBtn("1", "Opnieuw spelen", "location.reload()");
+    }else{
+        setStandard("Verloren", "Helaas je bent geen eerste geworden en je hebt dus verloren");
+        setBackground("lost.jpg");
+        setBtn("1", "Opnieuw spelen", "location.reload()");
+    }
+    setBtn("2", "", "", "none");
+    setBtn("3", "", "", "none");
+}
+
 startPagina();
-// raceBaan();
+race();

@@ -39,7 +39,6 @@ div#game-container{
     div#game-buttons{
         position: relative;
         margin: auto;
-        max-width: 600px;
         box-sizing: border-box;
         text-align: center;
         top: 100px;
