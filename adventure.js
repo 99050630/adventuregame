@@ -122,7 +122,7 @@ function startPagina(){
     setStandard("race driver", "Je bent een auto coureur en je moet de aankomende race echt winnen anders verlies je het kampioenschap je moet dingen vinden en laten maken luk het jou om de race te winnen?")
     setBtn("1", "", "", "none");
     setBtn("3", "", "", "none");
-    setBtn("2", "START", "kiesauto()");
+    setBtn("2", "START", "kiesAuto()");
     btn2.style.backgroundColor = "green";
     img.style.display = "none";
 }
@@ -208,6 +208,9 @@ function baan(){
 
 function bocht(richting){
     setInlineBlock();
+    setBtn("1", "", "", "none");
+    setBtn("2", "", "", "none");
+    setBtn("3", "", "", "none");
     if(richting == "links"){
         setStandard("Verloren", "Je bent over een spijker heen gereden en gecrashed");
         setBackground("grindbak.jpg");
@@ -232,4 +235,4 @@ function gewonnen(){
 }
 
 startPagina();
-race();
+// race();
